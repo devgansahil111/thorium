@@ -47,7 +47,15 @@ const bookSchema = new mongoose.Schema({
         unique: true,
         required: true
     },
-    publishYear: Number
+    publishYear: Number,
+    bookList: [{ 
+        type: String}]
 }, { timestamps: true} );
 
 module.exports = mongoose.model('Book',bookSchema)
+
+// const listSchema = new mongoose.Schema({
+//     bookList: [ String ]
+// }, { timestamps: true });
+
+// module.exports = mongoose.model('List of Books',listSchema)
