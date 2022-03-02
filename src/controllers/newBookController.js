@@ -6,8 +6,8 @@ const newPublisherModel = require("../models/newPublisherModel")
 const createBook= async function (req, res) {
     let data = req.body
     if (data.author && data.publisher){
-        const author = await authorModel.findOne({_id: {$in: data.author}})
-        const publisher = await puulisherModel.findOne({_id: {$in: data.publisher}})
+        const author = await newAuthorModel.findOne({_id: {$in: data.author}})
+        const publisher = await newPublisherModel.findOne({_id: {$in: data.publisher}})
         if (!author){
             return res.send({Err:"author not present in DB"})
         }
@@ -15,14 +15,11 @@ const createBook= async function (req, res) {
             return res.send({Err: "publisher not present in DB"})
         }
         // return res.send(publisher)
-        const book = await bookModel.create(data)
+        const book = await newBookModel.create(data)
         return res.send(book)
     }
     res.send({Err: "missing author or publisher name"})
 }
-//     let bookCreated = await newBookModel.create(book)
-//     res.send({data: bookCreated})
-// }
 
 const getBooksData= async function (req, res) {
     let books = await newBookModel.find()
