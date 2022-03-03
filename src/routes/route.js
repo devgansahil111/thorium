@@ -27,4 +27,16 @@ router.get("/getBooksWithPublisherDetails", newBookController.getBooksWithPublis
 
 router.get("/x", newBookController.x)
 
+router.post("/createNewPublisher", newPublisherController.createNewPublisher)
+router.get("/getNewPublishersData", newPublisherController.getNewPublishersData)
+
+router.post("/createNewAuthor", newAuthorController.createNewAuthor)
+router.get("/getNewAuthorsData", newAuthorController.getNewAuthorsData)
+
+router.post("/createNewBook", newBookController.createNewBook)
+router.get("/getNewBooksData", newBookController.getNewBooksData)
+
+router.put("/putBook", newBookController.putBook)
+router.put("/updatePrice", newBookController.updatePrice)
+
 module.exports = router;

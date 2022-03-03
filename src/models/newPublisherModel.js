@@ -8,3 +8,12 @@ headQuarter: String,
 },{timestamps: true});
 
 module.exports = mongoose.model('Publisher', publisherSchema)
+
+
+// 5. 
+const pSchema = new mongoose.Schema({
+    pName: String,
+    hQ: String
+}, {timestamps: true});
+
+module.exports = mongoose.model("NewPublisher", pSchema)
