@@ -1,5 +1,10 @@
 const UserModel= require("../models/userModel")
 
+const basicCode = async function (req, res) {
+    console.log("Hey man, congrats you have reached the handler")
+    res.send ({msg: "This is coming from controller (handler)"})
+}
+
 const createUser= async function (req, res) {
     let data= req.body
     let savedData= await UserModel.create(data)

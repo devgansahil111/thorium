@@ -3,10 +3,14 @@ const router = express.Router();
 // const UserModel= require("../models/userModel.js")
 const UserController= require("../controllers/userController")
 const BookController= require("../controllers/bookController")
+const controller = require("../controllers/controller")
 
 router.get("/test-me", function (req, res) {
     res.send("My first ever api!")
 })
+
+router.get("/test-1", controller.testOne)
+router.get("/test-2", controller.testTwo)
 
 router.post("/createUser", UserController.createUser  )
 
@@ -18,6 +22,24 @@ router.get("/getBooksData", BookController.getBooksData)
 
 router.post("/updateBooks", BookController.updateBooks)
 router.post("/deleteBooks", BookController.deleteBooks)
+
+
+
+// const mid1 = function (req, res, next) {
+//     console.log("Hi, I'm a middleware")
+//     let loggedIn = true
+//     if (loggedIn == true) {
+//         next()
+//     }
+//     else {
+//         res.send("Please login to register")
+//     }
+// }
+
+// router.get("/basicRoute", mid1, userController.basicCode)
+
+// module.exports = router;
+
 
 //MOMENT JS
 const moment = require('moment');
