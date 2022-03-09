@@ -1,14 +1,14 @@
 const jwt = require("jsonwebtoken");
 const userModel = require("../models/userModel");
 
-const createUser = async function (abcd, xyz) {
+const createUser = async function (req, res) {
   //You can name the req, res objects anything.
   //but the first parameter is always the request 
   //the second parameter is always the response
-  let data = abcd.body;
+  let data = req.body;
   let savedData = await userModel.create(data);
-  console.log(abcd.newAtribute);
-  xyz.send({ msg: savedData });
+  // console.log(res.newAtribute);
+  res.send({ msg: savedData });
 };
 
 const loginUser = async function (req, res) {
@@ -84,7 +84,21 @@ const updateUser = async function (req, res) {
   res.send({ status: updatedUser, data: updatedUser });
 };
 
+const deleteUser = async function (req, res){
+
+
+  let userId = req.params.userId;
+ 
+  let user = await userModel.findById(userId);
+  
+  user.isDeleted = "true";
+  let updatedUser = await userModel.findOneAndUpdate({ _id: userId }, user ,{new:true});
+  return res.send({ status: updatedUser, data: updatedUser });
+
+};
+
 module.exports.createUser = createUser;
 module.exports.getUserData = getUserData;
 module.exports.updateUser = updateUser;
 module.exports.loginUser = loginUser;
+module.exports.deleteUser = deleteUser;
