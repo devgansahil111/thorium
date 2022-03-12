@@ -46,3 +46,6 @@ Create API's to do each of the following:
                     "url": "https://i.imgflip.com/5mvxax.jpg",
                     "page_url": "https://imgflip.com/i/5mvxax"
                 }
+
+
+// weather - API KEY - a0a01ddd472e6ab13e93658e8868246a

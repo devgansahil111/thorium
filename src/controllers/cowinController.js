@@ -1,4 +1,5 @@
-let axios = require("axios")
+let axios = require("axios");
+const { post } = require("../routes/route");
 
 
 let getStates = async function (req, res) {
@@ -57,6 +58,29 @@ let getByPin = async function (req, res) {
     }
 }
 
+
+
+let getByDistrict = async function (req, res) {
+    try {
+        let district = req.query.district_id
+        let date = req.query.date
+        console.log(`query params are: ${district} ${date}`)
+        var options = {
+            method: "get",
+            url: `https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByDistrict?district_id=${district}&date=${date}`
+        }
+        let result = await axios(options)
+        console.log(result.data)
+        res.status(200).send({ msg: result.data })
+    }
+    catch (err) {
+        console.log(err)
+        res.status(500).send({ msg: err.message })
+    }
+}
+
+
+
 let getOtp = async function (req, res) {
     try {
         let blahhh = req.body
@@ -79,7 +103,56 @@ let getOtp = async function (req, res) {
 }
 
 
+let getSortedCities = async function (req, res){
+    try {
+        let cities = ["Banglore", "Mumbai", "Delhi", "Kolkata", "Chennai", "London", "Moscow"]
+        let cityObjArray = [ ]
+        for ( let i = 0; i < cities.length; i++){
+            let obj = {city: cities[i]}
+            let resp = await axios.get (`http://api.openweathermap.org/data/2.5/weather?q=${cities[i]}&appid=5d8597f58bc149a0a42bde5362d74ffb`)
+            console.log(resp.data.main.temp)
+
+            obj.temp = resp.data.main.temp
+            cityObjArray.push(obj)
+        }
+
+            let sorted = cityObjArray.sort( function(a,b) {return a.temp - b.temp})
+            console.log(sorted)
+            res.status(200).send({status: true , data: sorted})
+    }
+    catch (err){
+            console.log(err)
+            res.status(500).send({status: false, msg: "server error"})
+        }
+    }
+
+
+let memesCreation = async function (req, res){
+    try {
+        let id = req.query.id
+        let text0 = req.query.text0
+        let text1 = req.query.text1
+        let username = req.query.username
+        let password = req.query.password
+        console.log(`query params are: ${id} ${text0} ${text1} ${username} ${password}`)
+
+        var options = {
+            method: post,
+            url: `http://https://api.imgflip.com/caption_image?template_id=${id}&text0=${text0}&text1=${text1}&username=${username}&password=${password}`
+        }
+        let result = await axios(options)
+        console.log(result.data)
+        res.status(200).send({msg: result.data})
+    } catch (error) {
+        console.log(error)
+        res.status(500).send({msg: error.message})
+    }
+}
+
 module.exports.getStates = getStates
 module.exports.getDistricts = getDistricts
 module.exports.getByPin = getByPin
 module.exports.getOtp = getOtp
+module.exports.getByDistrict = getByDistrict
+module.exports.getSortedCities = getSortedCities
+module.exports.memesCreation = memesCreation
